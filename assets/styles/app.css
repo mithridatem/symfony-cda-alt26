@@ -60,3 +60,9 @@ body {
 .routing-summary h3 {
     margin-top: 0;
 }
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}

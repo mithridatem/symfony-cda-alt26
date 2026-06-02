@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<main class="container">
+    {% if link.name is defined %}
+    <article>
+        <h2>{{ link.name }}</h2>
+        <figure>
+            <img src="{{ link.icon }}" alt="{{ link.description }}">
+        </figure>
+        <a href="{{ link.url }}">{{ link.url }}</a>
+        <p>{{ link.description }}</p>
+        <h3>Auteur : {{ link.account.firstname }} {{ link.account.lastname }}</h3>
+        <h4>Ajouté le : {{ link.createdAt | date('d-m-Y') }}</h4>
+        <div>
+        {% for category in link.categories %}
+            <button>{{ category.name }}</button>
+        {% endfor %}
+        </div>
+    </article>
+    {% else %}
+    <h2>Le link n'existe pas</h2>
+    {% endif %}
+</main>    
+{% endblock %}
