@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des categories{% endblock %}
+
+{% block body %}
+{# afficher un attribut #}
+<p>{{ link.url }}</p>
+{# afficher un attribut avec un filtre #}
+<p>{{ link.createdAt| date('Y-m-d') }}</p>
+{# Afficher un attribut d'un objet lié #}
+<p>{{ link.account.firstname }}</p>
+{# boucler sur une collection d'objets liés #}
+{% for cat in link.categories %}
+    <h2>{{ cat.name }}</h2>
+{% endfor %}
+{# Afficher un attribut d'un objet contenu dans une collectop #}
+<p>{{link.categories[0].name }}</p>
+{# Itérer sur un tableau #}
+<section class="container">
+    {% for category in categories %}
+        <article id="{{ category.id}}"> {{ category.name }}</article>
+    {% endfor %}
+</section>
+
+{% endblock %}
