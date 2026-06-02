@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<h1>Calculatrice</h1>
+{% if operator == 'add' %}
+    <p>addition : {{ nbr1 + nbr2 }}</p>
+{% elseif operator == 'sous' %}
+    <p>soustraction : {{ nbr1 - nbr2 }}</p>
+{% elseif operator == 'multi' %}
+    <p>multiplication : {{ nbr1 * nbr2 }}</p>
+{% elseif operator == 'div' %}
+    {% if nbr2 == 0 %}
+        <p>division par zéro impossible</p>
+    {% else %} 
+        <p>division : {{ nbr1 / nbr2 }}</p>
+    {% endif %}
+{% else %}
+    <p>Opération n'existe pas</p>
+{% endif %}
+
+{% endblock %}

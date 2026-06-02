@@ -1,3 +1,62 @@
 body {
-    background-color: skyblue;
+    background-color: var(--pico-background-color);
+}
+
+.routing-course {
+    padding-block: 3rem;
+}
+
+.routing-hero {
+    max-width: 840px;
+    margin-bottom: 2rem;
+}
+
+.routing-hero h1 {
+    margin-top: 0;
+}
+
+.routing-kicker,
+.routing-label {
+    margin-bottom: .35rem;
+    color: var(--pico-primary);
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.routing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.routing-grid article {
+    display: flex;
+    flex-direction: column;
+}
+
+.routing-grid pre {
+    margin-top: auto;
+    overflow-x: auto;
+    border: 1px solid var(--pico-muted-border-color);
+}
+
+.routing-grid footer {
+    margin-top: 1rem;
+    color: var(--pico-muted-color);
+}
+
+.routing-summary {
+    margin-top: 2.5rem;
+}
+
+.routing-summary article {
+    border: 1px solid var(--pico-muted-border-color);
+    box-shadow: none;
+}
+
+.routing-summary h3 {
+    margin-top: 0;
 }

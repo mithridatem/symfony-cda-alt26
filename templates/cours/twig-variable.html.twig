@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours Symfony - Variable twig{% endblock %}
+
+{% block body %}
+<main class="container routing-course">
+    <header class="routing-hero">
+        <p class="routing-kicker">Twig</p>
+        <h1>Les variables avec Twig</h1>
+        <p>
+            Twig permet d'afficher des variables envoyees par un controller,
+            de creer des variables dans le template, et de manipuler des tableaux
+            ou des valeurs avec des filtres.
+        </p>
+    </header>
+
+    <section class="routing-grid">
+        <article>
+            <header>
+                <p class="routing-label">Controller</p>
+                <h2>Envoyer des variables</h2>
+            </header>
+            <p>
+                Le controller transmet les donnees au template avec le deuxieme
+                argument de <code>render()</code>.
+            </p>
+            <pre><code class="language-php">return $this->render('cours/twig-variable.html.twig', [
+    'title' => 'twig variable',
+    'prenom' => 'Mathieu',
+    'formation' => 'CDA ALT',
+    'notes' => [12, 15, 18],
+    'user' => [
+        'name' => 'Ada',
+        'role' => 'developpeuse'
+    ]
+]);</code></pre>
+            <footer>
+                <small>
+                    Chaque cle du tableau devient une variable Twig disponible
+                    dans le template.
+                </small>
+            </footer>
+        </article>
+
+        <article>
+            <header>
+                <p class="routing-label">Template</p>
+                <h2>Afficher une variable</h2>
+            </header>
+            <p>
+                Pour afficher une valeur, on utilise les doubles accolades :
+                <code>{{ '{{ variable }}' }}</code>.
+            </p>
+            <pre><code class="language-twig">&lt;h1&gt;Bonjour {{ '{{ prenom }}' }}&lt;/h1&gt;
+&lt;p&gt;Formation : {{ '{{ formation }}' }}&lt;/p&gt;</code></pre>
+            <footer>
+                <small>
+                    Resultat : Bonjour {{ prenom }} - Formation : {{ formation }}.
+                </small>
+            </footer>
+        </article>
+    </section>
+
+    <section class="routing-grid">
+        <article>
+            <header>
+                <p class="routing-label">Twig</p>
+                <h2>Creer une variable</h2>
+            </header>
+            <p>
+                Twig peut aussi creer une variable locale avec <code>set</code>.
+            </p>
+            <pre><code class="language-twig">{{ '{% set message = "Bienvenue dans Twig" %}' }}
+&lt;p&gt;{{ '{{ message }}' }}&lt;/p&gt;</code></pre>
+            {% set message = 'Bienvenue dans Twig' %}
+            <footer>
+                <small>Resultat : {{ message }}.</small>
+            </footer>
+        </article>
+
+        <article>
+            <header>
+                <p class="routing-label">Tableaux</p>
+                <h2>Parcourir des valeurs</h2>
+            </header>
+            <p>
+                Une variable qui contient plusieurs valeurs peut etre parcourue
+                avec une boucle <code>for</code>.
+            </p>
+            <pre><code class="language-twig">&lt;ul&gt;
+{{ '{% for note in notes %}' }}
+    &lt;li&gt;{{ '{{ note }}' }}/20&lt;/li&gt;
+{{ '{% endfor %}' }}
+&lt;/ul&gt;</code></pre>
+            <footer>
+                <small>
+                    Resultat :
+                    {% for note in notes %}
+                        <code>{{ note }}/20</code>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </small>
+            </footer>
+        </article>
+    </section>
+
+    <section class="routing-summary">
+        <h2>A retenir</h2>
+        <div class="grid">
+            <article>
+                <h3><code>{{ '{{ prenom }}' }}</code></h3>
+                <p>Affiche une variable envoyee par le controller.</p>
+            </article>
+            <article>
+                <h3><code>{{ '{% set %}' }}</code></h3>
+                <p>Cree une variable directement dans le template Twig.</p>
+            </article>
+            <article>
+                <h3><code>{{ '{{ user.name }}' }}</code></h3>
+                <p>Accede a une valeur dans un tableau associatif : {{ user.name }}.</p>
+            </article>
+        </div>
+    </section>
+</main>
+{% endblock %}

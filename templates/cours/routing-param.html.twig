@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours Symfony - Routing Param{% endblock %}
+
+{% block body %}
+<main class="container routing-course">
+    <header class="routing-hero">
+        <p class="routing-kicker">Symfony</p>
+        <h1>Le routing avec parametres</h1>
+        <p>
+            Une route peut contenir des parametres dynamiques entre accolades.
+            Symfony recupere ensuite ces valeurs dans les arguments de la methode
+            du controller.
+        </p>
+    </header>
+
+    <section class="routing-grid">
+        <article>
+            <header>
+                <p class="routing-label">Version fichier YAML</p>
+                <h2>Avec <code>routes.yaml</code></h2>
+            </header>
+            <p>
+                Les parties <code>{operator}</code>, <code>{nbr1}</code> et
+                <code>{nbr2}</code> deviennent des parametres transmis au controller.
+            </p>
+            <pre><code class="language-yaml">HelloControllerCalcul:
+    path: /calcul/{operator}/{nbr1}/{nbr2}
+    controller: App\Controller\HelloController::calcul</code></pre>
+            <footer>
+                <small>
+                    Exemple d'URL : <code>/calcul/addition/10/5</code>.
+                </small>
+            </footer>
+        </article>
+
+        <article>
+            <header>
+                <p class="routing-label">Version attribut PHP</p>
+                <h2>Avec <code>#[Route]</code></h2>
+            </header>
+            <p>
+                Avec l'attribut, la route reste proche de la methode qui utilise
+                les valeurs dynamiques.
+            </p>
+            <pre><code class="language-php">&lt;?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+class HelloController
+{
+    #[Route(path: '/calcul/{operator}/{nbr1}/{nbr2}', name: 'app_calcul_param')]
+    public function calcul(string $operator, mixed $nbr1, mixed $nbr2): Response
+    {
+        return new Response($operator . ' : ' . $nbr1 . ' et ' . $nbr2);
+    }
+}</code></pre>
+            <footer>
+                <small>
+                    Les noms dans l'URL doivent correspondre aux noms des arguments
+                    de la methode.
+                </small>
+            </footer>
+        </article>
+    </section>
+
+    <section class="routing-summary">
+        <h2>A retenir</h2>
+        <div class="grid">
+            <article>
+                <h3><code>{operator}</code></h3>
+                <p>Un parametre dynamique qui peut contenir le type de calcul.</p>
+            </article>
+            <article>
+                <h3><code>{nbr1}</code> et <code>{nbr2}</code></h3>
+                <p>Deux valeurs recuperees depuis l'URL puis passees a la methode.</p>
+            </article>
+            <article>
+                <h3>Arguments</h3>
+                <p>Symfony injecte les parametres dans la methode du controller.</p>
+            </article>
+        </div>
+    </section>
+</main>
+{% endblock %}

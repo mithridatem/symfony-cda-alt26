@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cours Symfony - Routing{% endblock %}
+
+{% block body %}
+<main class="container routing-course">
+    <header class="routing-hero">
+        <p class="routing-kicker">Symfony</p>
+        <h1>Le routing</h1>
+        <p>
+            Le routing permet d'associer une URL a une methode de controller.
+            Symfony peut lire ces routes depuis un fichier de configuration
+            comme <code>routes.yaml</code>, ou directement depuis le controller
+            avec l'attribut <code>#[Route]</code>.
+        </p>
+    </header>
+
+    <section class="routing-grid">
+        <article>
+            <header>
+                <p class="routing-label">Version fichier YAML</p>
+                <h2>Avec <code>routes.yaml</code></h2>
+            </header>
+            <p>
+                Cette approche centralise les routes dans un fichier de configuration.
+                Elle est utile pour garder une vue globale des URLs de l'application.
+            </p>
+            <pre><code class="language-yaml">HelloController:
+    path: /hello
+    controller: App\Controller\HelloController::hello</code></pre>
+            <footer>
+                <small>
+                    Ici, l'URL <code>/hello</code> appelle la methode
+                    <code>hello()</code> du controller <code>HelloController</code>.
+                </small>
+            </footer>
+        </article>
+
+        <article>
+            <header>
+                <p class="routing-label">Version attribut PHP</p>
+                <h2>Avec <code>#[Route]</code></h2>
+            </header>
+            <p>
+                Cette approche place la route juste au-dessus de la methode concernee.
+                Elle est tres courante dans les projets Symfony modernes.
+            </p>
+            <pre><code class="language-php">&lt;?php
+
+namespace App\Controller;
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+class HelloController
+{
+    #[Route(path: '/calcul', name: 'app_calcul')]
+    public function calcul(): Response
+    {
+        return new Response('Page de calcul');
+    }
+}</code></pre>
+            <footer>
+                <small>
+                    Ici, l'URL <code>/calcul</code> appelle directement la methode
+                    <code>calcul()</code>.
+                </small>
+            </footer>
+        </article>
+    </section>
+
+    <section class="routing-summary">
+        <h2>A retenir</h2>
+        <div class="grid">
+            <article>
+                <h3><code>path</code></h3>
+                <p>L'URL visible dans le navigateur, par exemple <code>/hello</code>.</p>
+            </article>
+            <article>
+                <h3><code>controller</code></h3>
+                <p>La classe et la methode appelees lorsque la route correspond.</p>
+            </article>
+            <article>
+                <h3><code>name</code></h3>
+                <p>Le nom de la route, pratique pour generer des liens avec Twig.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+{% endblock %}
